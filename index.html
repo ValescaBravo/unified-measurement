@@ -2,241 +2,553 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Unified Marketing Measurement – Interactive</title>
-  <!-- Tailwind via CDN -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>Unified Marketing Measurement – Interactive | Valesca Bravo Lab</title>
+  <meta name="description" content="Interactive guide to Unified Marketing Measurement: MTA + MMM + Incrementality testing. Learn how modern marketers measure ROI across channels." />
+  <meta property="og:title" content="Unified Marketing Measurement – Interactive" />
+  <meta property="og:description" content="Explore Multi-Touch Attribution, Marketing Mix Modeling, and Incrementality testing in one unified framework." />
+  <meta property="og:type" content="website" />
+  
   <script src="https://cdn.tailwindcss.com"></script>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
-  <style> body{font-family:'Inter',sans-serif} .chip{border-radius:9999px;padding:.25rem .6rem;cursor:pointer} .badge{border-radius:.5rem;padding:.15rem .45rem} </style>
-  <!-- React 18 via CDN (works on GitHub Pages, no build step) -->
+  <!-- BRAND TYPOGRAPHY: DM Sans, DM Serif Display, DM Mono -->
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <!-- html2pdf for export -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js" integrity="sha512-GsLlZN/3F2ErC5ifS5QtgpiJtWd43JWSuIgh7mbzZ8zBps+dvLusV+eNQATqgA/HdeKFVgA5v3S/cIrLF7QnIg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
   <script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
   <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
   <script crossorigin src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
-</head>
-<body class="bg-gradient-to-b from-blue-50 to-green-50 text-gray-800">
-  <header class="max-w-6xl mx-auto px-6 py-10">
-    <a href="https://valescabravo.github.io/" class="inline-flex items-center text-sm text-blue-700 hover:underline">← Back to Portfolio</a>
-    <a href="https://valescabravo.github.io/lab" class="inline-flex items-center text-sm text-blue-700 hover:underline">← Back to the Lab</a>
-    <h1 class="text-3xl md:text-5xl font-extrabold mt-4 leading-tight">Unified Marketing Measurement
-      <span class="block text-xl md:text-2xl font-semibold text-gray-600">Interactive infographic: MTA + MMM + Incrementality</span>
-    </h1>
-    <p class="mt-3 text-gray-700 max-w-3xl">Click the buttons, explore the models, and see how granular attribution and holistic modeling work together.</p>
-    <div class="mt-4 flex flex-wrap gap-2">
-      <span class="chip bg-blue-100 text-blue-800">Interactive</span>
-      <span class="chip bg-emerald-100 text-emerald-800">Simplified</span>
-      <span class="chip bg-purple-100 text-purple-800">GitHub Pages-ready</span>
-    </div>
-  </header>
-
-  <main id="app" class="max-w-6xl mx-auto px-6 pb-20"></main>
-
-  <footer class="text-center text-sm text-gray-500 pb-10">© 2026 Valesca Bravo — Interactive Lab</footer>
-
-  <!-- App Script -->
-  <script type="text/babel">
-    const { useState } = React;
-
-    const Card = ({ title, children, accent = 'indigo' }) => (
-      <div className={`bg-white/90 backdrop-blur shadow rounded-2xl p-5 border-l-4 ${
-        accent==='blue'?'border-blue-500':accent==='emerald'?'border-emerald-500':accent==='rose'?'border-rose-500':accent==='violet'?'border-violet-500':accent==='indigo'?'border-indigo-500':'border-amber-500'
-      }`}>
-        <h3 className="text-xl font-bold mb-2">{title}</h3>
-        <div className="text-sm md:text-base text-gray-700">{children}</div>
-      </div>
-    );
-
-    const StepChip = ({n,label,active,onClick}) => (
-      <div onClick={onClick} className={`chip border text-xs ${active? 'bg-indigo-600 text-white border-indigo-700 shadow' : 'bg-white text-indigo-700 border-indigo-200 hover:bg-indigo-100'}`}>
-        <span className="font-bold mr-1">{n}.</span>{label}
-      </div>
-    );
-
-    function Venn(){
-      return (
-        <div className="relative w-full max-w-xl mx-auto h-64 md:h-72">
-          <div className="absolute inset-0 flex items-center justify-center">
-            <div className="relative w-64 h-64">
-              <div className="absolute left-0 top-0 w-64 h-64 bg-blue-300/40 rounded-full blur-sm"></div>
-              <div className="absolute right-0 top-0 w-64 h-64 bg-emerald-300/40 rounded-full blur-sm"></div>
-              <div className="absolute inset-8 flex items-center justify-center">
-                <div className="bg-white/80 backdrop-blur rounded-xl px-4 py-2 text-center shadow">
-                  <div className="text-sm font-semibold">Unified Framework</div>
-                  <div className="text-xs text-gray-600">Budget optimisation • Channel synergy • Incrementality</div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      );
+  
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background-color: #09071a;
+      color: #eef2ff;
+      font-weight: 300;
+      scroll-behavior: smooth;
     }
+    :root {
+      --navy: #1d085e;
+      --teal: #13d6c1;
+      --teal-dark: #0a9a88;
+      --bg-dark: #09071a;
+      --card-bg: #0d0b1e;
+      --border-dim: #1e1e38;
+    }
+    
+    ::-webkit-scrollbar { width: 8px; height: 8px; }
+    ::-webkit-scrollbar-track { background: #0d0b1e; border-radius: 10px; }
+    ::-webkit-scrollbar-thumb { background: var(--teal); border-radius: 10px; }
+    ::-webkit-scrollbar-thumb:hover { background: var(--teal-dark); }
+    
+    @keyframes fadeSlideUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .animate-fade-slide { animation: fadeSlideUp 0.4s cubic-bezier(0.2, 0.9, 0.4, 1.1) forwards; }
+    
+    .focus-ring:focus-visible {
+      outline: 2px solid #13d6c1;
+      outline-offset: 2px;
+      border-radius: 8px;
+    }
+    
+    .hero-brand {
+      background: linear-gradient(135deg, #0d0430, #1d085e, #0d3b38);
+      position: relative;
+      overflow: hidden;
+    }
+    .hero-brand::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background-image: radial-gradient(rgba(19,214,193,0.05) 1px, transparent 1px);
+      background-size: 32px 32px;
+      pointer-events: none;
+    }
+    
+    .brand-card {
+      background: #0d0b1e;
+      border: 1px solid #1e1e38;
+      border-radius: 1.5rem;
+      transition: all 0.25s ease;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.4);
+    }
+    .brand-card:hover {
+      border-color: var(--teal);
+      box-shadow: 0 12px 28px rgba(19,214,193,0.18);
+      transform: translateY(-2px);
+    }
+    
+    .chip-brand {
+      border-radius: 9999px;
+      padding: 0.25rem 0.9rem;
+      cursor: pointer;
+      font-family: 'DM Mono', monospace;
+      font-size: 0.75rem;
+      transition: all 0.2s;
+    }
+    
+    .pill-teal {
+      display: inline-flex;
+      align-items: center;
+      padding: 0.2rem 0.75rem;
+      font-size: 0.7rem;
+      font-family: 'DM Mono', monospace;
+      background: rgba(19,214,193,0.12);
+      border: 1px solid rgba(19,214,193,0.4);
+      color: #13d6c1;
+      border-radius: 999px;
+      margin: 0.2rem;
+    }
+    
+    .btn-export {
+      background-color: #1d085e;
+      font-family: 'DM Mono', monospace;
+      transition: all 0.2s;
+    }
+    .btn-export:hover {
+      background-color: #0a9a88;
+      transform: translateY(-1px);
+      box-shadow: 0 4px 12px rgba(19,214,193,0.3);
+    }
+    
+    .btn-step {
+      transition: all 0.2s;
+    }
+    
+    /* Attribution chart bars */
+    .bar-transition {
+      transition: height 0.5s cubic-bezier(0.2, 0.9, 0.4, 1.1);
+    }
+    
+    /* Venn diagram animation */
+    .venn-circle {
+      transition: all 0.3s ease;
+    }
+    .venn-circle:hover {
+      filter: brightness(1.05);
+    }
+  </style>
+</head>
+<body class="bg-[#09071a] font-['DM_Sans'] antialiased">
 
-    // Simple chart component for attribution models
-    function AttributionChart({model}){
+  <!-- Hero Section Branded -->
+  <div class="hero-brand relative overflow-hidden">
+    <div class="relative max-w-6xl mx-auto px-6 py-12 md:py-16 z-10">
+      <div class="flex flex-wrap items-center justify-between gap-4">
+        <div>
+          <a href="https://valescabravo.github.io/" class="inline-flex items-center text-sm text-teal-300 hover:text-teal-200 transition-colors font-mono tracking-wide focus-ring">← Back to Portfolio</a>
+          <span class="mx-2 text-teal-500/50">/</span>
+          <a href="https://valescabravo.github.io/lab" class="inline-flex items-center text-sm text-teal-300 hover:text-teal-200 transition-colors font-mono tracking-wide focus-ring">Back to the Lab</a>
+        </div>
+      </div>
+      <h1 class="text-4xl md:text-6xl font-bold mt-6 leading-tight serif-heading text-white">
+        Unified Marketing Measurement
+        <span class="block text-xl md:text-2xl font-light text-teal-200 mt-2">Interactive: MTA + MMM + Incrementality</span>
+      </h1>
+      <p class="mt-4 text-teal-100/80 max-w-3xl text-lg">Click the buttons, explore the models, and see how granular attribution and holistic modeling work together.</p>
+      <div class="mt-5 flex flex-wrap gap-3">
+        <span class="pill-teal">Interactive</span>
+        <span class="pill-teal">Simplified</span>
+        <span class="pill-teal">GitHub Pages-ready</span>
+        <span class="pill-teal">2026</span>
+      </div>
+    </div>
+  </div>
+
+  <main id="app" class="max-w-6xl mx-auto px-6 pb-20 -mt-8 relative z-10"></main>
+
+  <footer class="bg-[#05021a] border-t border-[#1e1e38] py-8 mt-8">
+    <div class="max-w-6xl mx-auto px-6 text-center">
+      <p class="text-gray-400 font-mono text-sm">© 2026 Valesca Bravo — Interactive Lab</p>
+    </div>
+  </footer>
+
+  <script type="text/babel">
+    const { useState, useEffect, useRef } = React;
+
+    // Journey stage labels for attribution chart
+    const JOURNEY_STAGES = ['Awareness', 'Consideration', 'Intent', 'Conversion'];
+    const COLORS = ['#3b82f6', '#10b981', '#8b5cf6', '#f59e0b'];
+
+    // Attribution Chart with proper labels
+    const AttributionChart = ({ model }) => {
       let data = [];
-      if(model==='linear') data=[25,25,25,25];
-      else if(model==='decay') data=[10,20,30,40];
-      else if(model==='pos') data=[30,10,10,50];
-      else if(model==='last') data=[0,0,0,100];
-      else data=[25,25,25,25];
+      let description = '';
+      if (model === 'linear') { data = [25, 25, 25, 25]; description = 'Equal credit to all touchpoints in the customer journey.'; }
+      else if (model === 'decay') { data = [10, 20, 30, 40]; description = 'More credit to touchpoints closer to conversion.'; }
+      else if (model === 'position') { data = [40, 10, 10, 40]; description = 'First and last touchpoints receive most credit (U‑shape).'; }
+      else if (model === 'last') { data = [0, 0, 0, 100]; description = 'All credit goes to the final interaction before conversion.'; }
+      else if (model === 'first') { data = [100, 0, 0, 0]; description = 'All credit goes to the first touchpoint.'; }
+      else { data = [25, 25, 25, 25]; description = 'Select a model to see credit distribution.'; }
 
-      const colors = ["bg-blue-400","bg-green-400","bg-purple-400","bg-amber-400"];
+      if (model === 'none') {
+        return (
+          <div className="mt-4 p-4 bg-[#1d085e]/30 border border-teal-500/40 rounded-xl text-center">
+            <p className="text-teal-300 text-sm font-mono">Select an attribution model above to visualize credit distribution</p>
+          </div>
+        );
+      }
 
       return (
         <div className="mt-4">
-          <div className="flex gap-1 h-20 items-end">
-            {data.map((val,i)=>(
-              <div key={i} className={`flex-1 ${colors[i]} rounded-t transition-all duration-500`} style={{height:val+'%'}} title={`Step ${i+1}: ${val}%`}></div>
+          <div className="flex gap-2 h-32 items-end">
+            {data.map((val, i) => (
+              <div key={i} className="flex-1 flex flex-col items-center gap-1">
+                <div className="text-xs text-teal-300 font-mono">{val}%</div>
+                <div className={`w-full rounded-t transition-all duration-500 bar-transition`} style={{ height: `${Math.max(val * 1.2, 8)}px`, backgroundColor: COLORS[i] }}></div>
+                <div className="text-[10px] text-gray-400 font-mono text-center mt-2">{JOURNEY_STAGES[i]}</div>
+              </div>
             ))}
           </div>
-          <div className="flex justify-between text-xs text-gray-600 mt-1">
-            <span>Step 1</span>
-            <span>Step 2</span>
-            <span>Step 3</span>
-            <span>Step 4</span>
+          <div className="mt-3 p-3 bg-[#1d085e]/20 border border-teal-500/30 rounded-lg">
+            <p className="text-xs text-gray-300 font-mono">📊 {description}</p>
           </div>
         </div>
       );
-    }
+    };
 
-    function Progress({active, total=5}){
-      const pct = Math.round((active/total)*100);
+    // Progress bar component
+    const ProgressBar = ({ active, total = 5 }) => {
+      const pct = Math.round((active / total) * 100);
       return (
         <div className="w-full">
-          <div className="flex justify-between text-xs text-gray-600 mb-1">
+          <div className="flex justify-between text-xs text-teal-300 font-mono mb-1">
             <span>Step {active} of {total}</span>
             <span>{pct}%</span>
           </div>
-          <div className="w-full h-2 bg-gray-200 rounded-full overflow-hidden" aria-label={`Progress ${pct}%`}>
-            <div className="h-full bg-gradient-to-r from-indigo-500 to-emerald-500 transition-all duration-500" style={{width: pct+'%'}}></div>
+          <div className="w-full h-2 bg-[#1e1e38] rounded-full overflow-hidden">
+            <div className="h-full bg-gradient-to-r from-teal-500 to-teal-400 transition-all duration-500 rounded-full" style={{ width: pct + '%' }}></div>
           </div>
         </div>
       );
-    }
+    };
 
-    function App(){
-      const [model, setModel] = useState('none');
+    // Step Chip component
+    const StepChip = ({ n, label, active, onClick }) => (
+      <button onClick={onClick} className={`focus-ring chip-brand border transition-all ${active ? 'bg-[#1d085e] text-teal-300 border-teal-500 shadow-md' : 'bg-[#0f0c23] text-gray-300 border-[#2a2a4a] hover:border-teal-500'}`}>
+        <span className="font-bold mr-1">{n}.</span>{label}
+      </button>
+    );
+
+    // Venn diagram properly drawn with SVG
+    const VennDiagram = () => (
+      <svg viewBox="0 0 400 280" className="w-full max-w-md mx-auto my-4" role="img" aria-label="Venn diagram showing intersection of Multi-Touch Attribution, Marketing Mix Modeling, and Incrementality Testing">
+        <defs>
+          <filter id="vennGlow"><feDropShadow dx="0" dy="2" stdDeviation="4" floodColor="#13d6c1" floodOpacity="0.3"/></filter>
+        </defs>
+        {/* MTA circle (left) */}
+        <circle cx="140" cy="130" r="90" fill="#3b82f6" opacity="0.35" stroke="#60a5fa" strokeWidth="2" className="venn-circle"/>
+        <text x="110" y="110" textAnchor="middle" fill="#93c5fd" fontSize="11" fontFamily="'DM Mono', monospace">MTA</text>
+        <text x="110" y="125" textAnchor="middle" fill="#c7d2fe" fontSize="9" fontFamily="'DM Sans', sans-serif">Granular</text>
+        
+        {/* MMM circle (right) */}
+        <circle cx="260" cy="130" r="90" fill="#10b981" opacity="0.35" stroke="#34d399" strokeWidth="2" className="venn-circle"/>
+        <text x="290" y="110" textAnchor="middle" fill="#6ee7b7" fontSize="11" fontFamily="'DM Mono', monospace">MMM</text>
+        <text x="290" y="125" textAnchor="middle" fill="#a7f3d0" fontSize="9" fontFamily="'DM Sans', sans-serif">Holistic</text>
+        
+        {/* Incrementality circle (bottom center) */}
+        <circle cx="200" cy="190" r="70" fill="#f59e0b" opacity="0.35" stroke="#fbbf24" strokeWidth="2" className="venn-circle"/>
+        <text x="200" y="215" textAnchor="middle" fill="#fcd34d" fontSize="10" fontFamily="'DM Mono', monospace">Incrementality</text>
+        <text x="200" y="230" textAnchor="middle" fill="#fde68a" fontSize="8" fontFamily="'DM Sans', sans-serif">Testing</text>
+        
+        {/* Intersection labels */}
+        <text x="175" y="115" textAnchor="middle" fill="#13d6c1" fontSize="8" fontFamily="'DM Mono', monospace" opacity="0.8">Channel</text>
+        <text x="175" y="128" textAnchor="middle" fill="#13d6c1" fontSize="8" fontFamily="'DM Mono', monospace" opacity="0.8">Synergy</text>
+        <text x="200" y="165" textAnchor="middle" fill="#13d6c1" fontSize="8" fontFamily="'DM Mono', monospace" opacity="0.8">Unified</text>
+        <text x="200" y="178" textAnchor="middle" fill="#13d6c1" fontSize="8" fontFamily="'DM Mono', monospace" opacity="0.8">ROI</text>
+        
+        {/* Center unified label */}
+        <rect x="160" y="82" width="80" height="22" rx="11" fill="#1d085e" stroke="#13d6c1" strokeWidth="1" opacity="0.95"/>
+        <text x="200" y="97" textAnchor="middle" fill="#13d6c1" fontSize="9" fontFamily="'DM Mono', monospace" fontWeight="bold">Best of Both</text>
+      </svg>
+    );
+
+    // Main App Component
+    function App() {
+      // Persistence: localStorage + hash URL
+      const [activeStep, setActiveStep] = useState(() => {
+        const saved = localStorage.getItem('unifiedMarketingStep');
+        const hash = window.location.hash.replace('#step-', '');
+        const stepNum = parseInt(hash);
+        if (!isNaN(stepNum) && stepNum >= 1 && stepNum <= 5) return stepNum;
+        if (saved && saved >= 1 && saved <= 5) return saved;
+        return 1;
+      });
+      
+      const [attributionModel, setAttributionModel] = useState(() => {
+        const saved = localStorage.getItem('attributionModel');
+        return saved && ['linear', 'decay', 'position', 'last', 'first'].includes(saved) ? saved : 'none';
+      });
+      
       const [showAI, setShowAI] = useState(true);
-      const [activeStep, setActiveStep] = useState(1);
+      const [copied, setCopied] = useState(false);
+
+      // Save to localStorage and update hash when step changes
+      useEffect(() => {
+        localStorage.setItem('unifiedMarketingStep', activeStep);
+        window.location.hash = `step-${activeStep}`;
+      }, [activeStep]);
+
+      // Save attribution model
+      useEffect(() => {
+        if (attributionModel !== 'none') {
+          localStorage.setItem('attributionModel', attributionModel);
+        }
+      }, [attributionModel]);
+
+      // Export current step as PDF
+      const handleExport = () => {
+        const element = document.getElementById('step-content-export');
+        if (element) {
+          const stepNames = ['', 'Challenge', 'Two Pillars', 'Unified Framework', 'AI', 'Outcomes'];
+          const opt = {
+            margin: [0.5, 0.5, 0.5, 0.5],
+            filename: `unified_marketing_step${activeStep}_${stepNames[activeStep]}.pdf`,
+            image: { type: 'jpeg', quality: 0.98 },
+            html2canvas: { scale: 2 },
+            jsPDF: { unit: 'in', format: 'a4', orientation: 'portrait' }
+          };
+          html2pdf().set(opt).from(element).save();
+        }
+      };
+
+      // Copy current step summary
+      const copyStepSummary = () => {
+        const stepContent = document.getElementById('step-summary-text');
+        if (stepContent) {
+          navigator.clipboard.writeText(stepContent.innerText);
+          setCopied(true);
+          setTimeout(() => setCopied(false), 2000);
+        }
+      };
+
+      // Get step content for export
+      const getStepContent = () => {
+        switch (activeStep) {
+          case 1: return "Step 1: The Challenge\nCookies are fading and privacy rules are stronger. Click-only attribution is no longer enough. Key challenges: Cookie decline, Privacy regulations (GDPR, CCPA), Offline impact measurement.";
+          case 2: return "Step 2: Two Pillars\nMTA (Multi-Touch Attribution): Tracks each step before conversion, uses pixels and UTM parameters, useful for channel-level optimisation.\nMMM (Marketing Mix Modeling): Uses historical and aggregated data, covers online and offline, privacy-safe.";
+          case 3: return "Step 3: Unified Framework\nMTA provides granular digital data. MMM measures channel performance and external factors. Incrementality testing (A/B, geo-lift) validates both. No single source of truth — integration provides resilience.";
+          case 4: return "Step 4: AI in Measurement\nAI accelerates modeling, improves attribution, and enables scenario planning. Benefits: Faster model updates, Forecasting and scenarios, Signal recovery without cookies.";
+          case 5: return "Step 5: Outcomes\nOptimized spending across channels, Holistic view of marketing effectiveness, Data-driven confident strategies in complex markets.";
+          default: return "Unified Marketing Measurement Framework";
+        }
+      };
 
       return (
         <div className="space-y-8">
-
-          {/* Step chips as navigation */}
-          <div className="space-y-3">
-            <div className="flex flex-wrap gap-2">
-              <StepChip n={1} label="Challenge" active={activeStep===1} onClick={()=>setActiveStep(1)} />
-              <StepChip n={2} label="Two Pillars" active={activeStep===2} onClick={()=>setActiveStep(2)} />
-              <StepChip n={3} label="Unified Framework" active={activeStep===3} onClick={()=>setActiveStep(3)} />
-              <StepChip n={4} label="AI" active={activeStep===4} onClick={()=>setActiveStep(4)} />
-              <StepChip n={5} label="Outcomes" active={activeStep===5} onClick={()=>setActiveStep(5)} />
+          {/* Step navigation */}
+          <div className="bg-[#0d0b1e] border border-[#1e1e38] rounded-2xl p-5 shadow-xl">
+            <div className="flex flex-wrap gap-2 mb-4">
+              <StepChip n={1} label="Challenge" active={activeStep === 1} onClick={() => setActiveStep(1)} />
+              <StepChip n={2} label="Two Pillars" active={activeStep === 2} onClick={() => setActiveStep(2)} />
+              <StepChip n={3} label="Unified Framework" active={activeStep === 3} onClick={() => setActiveStep(3)} />
+              <StepChip n={4} label="AI" active={activeStep === 4} onClick={() => setActiveStep(4)} />
+              <StepChip n={5} label="Outcomes" active={activeStep === 5} onClick={() => setActiveStep(5)} />
             </div>
-            <Progress active={activeStep} total={5} />
+            <ProgressBar active={activeStep} total={5} />
           </div>
 
-          {/* Step Content */}
-          {activeStep===1 && (
-            <Card title="Step 1: The Challenge" accent="rose">
-              <div className="grid md:grid-cols-3 gap-3">
-                <div className="md:col-span-2 text-sm md:text-base">Cookies are fading and privacy rules are stronger. Click-only attribution is no longer enough.</div>
-                <div className="flex md:justify-end gap-2">
-                  <span className="badge bg-rose-100 text-rose-800 border border-rose-200">Cookie decline</span>
-                  <span className="badge bg-amber-100 text-amber-800 border border-amber-200">Privacy regulations</span>
-                  <span className="badge bg-blue-100 text-blue-800 border border-blue-200">Offline impact</span>
+          {/* Export and Copy buttons */}
+          <div className="flex flex-wrap justify-end gap-3">
+            <button onClick={handleExport} className="btn-export inline-flex items-center gap-2 px-4 py-2 rounded-full text-sm font-mono text-white transition-all focus-ring">
+              📄 Export Step as PDF
+            </button>
+            <button onClick={copyStepSummary} className="inline-flex items-center gap-2 px-4 py-2 rounded-full text-sm font-mono bg-[#1d085e] border border-teal-500/60 text-teal-200 hover:bg-teal-dark hover:text-white transition-all focus-ring">
+              📋 Copy Summary
+            </button>
+            {copied && <span className="text-teal-400 text-xs font-mono animate-pulse">✓ Copied!</span>}
+          </div>
+
+          {/* Hidden summary text for copying */}
+          <div id="step-summary-text" className="hidden">{getStepContent()}</div>
+
+          {/* Step content - wrapped for export */}
+          <div id="step-content-export">
+            {activeStep === 1 && (
+              <div className="brand-card p-6 animate-fade-slide">
+                <h2 className="text-2xl font-bold text-white serif-heading mb-4 flex items-center gap-2">📉 Step 1: The Challenge</h2>
+                <div className="grid md:grid-cols-2 gap-6">
+                  <div>
+                    <p className="text-gray-200 text-sm md:text-base mb-4">Cookies are fading and privacy rules are stronger. Click-only attribution is no longer enough for modern marketing measurement.</p>
+                    <div className="space-y-3">
+                      <div className="flex items-center gap-3 p-3 bg-red-900/20 rounded-lg border border-red-500/30">
+                        <span className="text-xl">🍪</span>
+                        <span className="text-sm text-gray-200">Cookie decline &amp; third-party phase-out</span>
+                      </div>
+                      <div className="flex items-center gap-3 p-3 bg-amber-900/20 rounded-lg border border-amber-500/30">
+                        <span className="text-xl">🔒</span>
+                        <span className="text-sm text-gray-200">Privacy regulations (GDPR, CCPA)</span>
+                      </div>
+                      <div className="flex items-center gap-3 p-3 bg-blue-900/20 rounded-lg border border-blue-500/30">
+                        <span className="text-xl">📺</span>
+                        <span className="text-sm text-gray-200">Offline impact measurement gap</span>
+                      </div>
+                    </div>
+                  </div>
+                  <div className="bg-[#1d085e]/20 border border-teal-500/30 rounded-xl p-5">
+                    <h3 className="text-teal-300 font-mono text-sm mb-3">Why it matters</h3>
+                    <p className="text-gray-200 text-sm">Without unified measurement, marketers risk misallocating budgets, missing cross-channel synergies, and failing to prove true ROI.</p>
+                    <div className="mt-4 flex gap-2">
+                      <span className="pill-teal">Privacy-first</span>
+                      <span className="pill-teal">Cross-channel</span>
+                    </div>
+                  </div>
                 </div>
               </div>
-            </Card>
-          )}
+            )}
 
-          {activeStep===2 && (
-            <section className="grid md:grid-cols-2 gap-6">
-              <div className="space-y-3">
-                <h2 className="text-2xl font-extrabold text-blue-700">Multi-Touch Attribution (MTA)</h2>
-                <Card title="Granular, bottom-up" accent="blue">
-                  <p>Tracks each step before conversion.</p>
-                  <ul className="list-disc list-inside space-y-1 mt-2">
-                    <li>Uses pixels and UTM parameters.</li>
-                    <li>Useful for channel-level optimisation.</li>
-                  </ul>
-                  <div className="mt-3 text-sm">
-                    <div className="font-semibold mb-1">Attribution models:</div>
-                    <div className="flex flex-wrap gap-2">
-                      <button className={`chip border ${model==='linear'?'bg-blue-600 text-white border-blue-700':'bg-white text-blue-700 border-blue-200'}`} onClick={()=>setModel('linear')}>Linear</button>
-                      <button className={`chip border ${model==='decay'?'bg-blue-600 text-white border-blue-700':'bg-white text-blue-700 border-blue-200'}`} onClick={()=>setModel('decay')}>Time Decay</button>
-                      <button className={`chip border ${model==='pos'?'bg-blue-600 text-white border-blue-700':'bg-white text-blue-700 border-blue-200'}`} onClick={()=>setModel('pos')}>Position-Based</button>
-                      <button className={`chip border ${model==='last'?'bg-blue-600 text-white border-blue-700':'bg-white text-blue-700 border-blue-200'}`} onClick={()=>setModel('last')}>Last Click</button>
+            {activeStep === 2 && (
+              <div className="animate-fade-slide">
+                <div className="grid md:grid-cols-2 gap-6">
+                  {/* MTA Column */}
+                  <div className="brand-card p-6">
+                    <div className="flex items-center gap-2 mb-4">
+                      <span className="text-2xl">🔍</span>
+                      <h2 className="text-xl font-bold text-white serif-heading">Multi-Touch Attribution (MTA)</h2>
                     </div>
-                    <div className="mt-3 bg-blue-50 border border-blue-200 rounded-xl p-3">
-                      {model==='linear' && 'Linear: credit is distributed equally across all steps.'}
-                      {model==='decay' && 'Time Decay: later steps receive more credit.'}
-                      {model==='pos' && 'Position-Based: first and last steps receive more credit.'}
-                      {model==='last' && 'Last Click: all credit goes to the final interaction.'}
-                      {model==='none' && 'Select a model to see how credit is assigned.'}
+                    <p className="text-gray-200 text-sm mb-3">Granular, bottom-up tracking of each customer interaction before conversion.</p>
+                    <ul className="list-disc list-inside text-sm text-gray-300 space-y-1 mb-4">
+                      <li>Uses pixels, UTMs, and user IDs</li>
+                      <li>Useful for channel-level optimisation</li>
+                      <li>Real-time insights</li>
+                    </ul>
+                    <div className="mt-3">
+                      <div className="font-mono text-teal-300 text-xs mb-2">Attribution models:</div>
+                      <div className="flex flex-wrap gap-2">
+                        {['linear', 'decay', 'position', 'last', 'first'].map(m => (
+                          <button key={m} className={`chip-brand border text-xs transition-all ${attributionModel === m ? 'bg-[#1d085e] text-teal-300 border-teal-500' : 'bg-[#0f0c23] text-gray-300 border-[#2a2a4a] hover:border-teal-500'}`} onClick={() => setAttributionModel(m)}>
+                            {m === 'linear' ? 'Linear' : m === 'decay' ? 'Time Decay' : m === 'position' ? 'Position' : m === 'last' ? 'Last Click' : 'First Click'}
+                          </button>
+                        ))}
+                      </div>
+                      <AttributionChart model={attributionModel} />
                     </div>
-                    {model!=='none' && <AttributionChart model={model} />}
                   </div>
-                </Card>
-              </div>
 
-              <div className="space-y-3">
-                <h2 className="text-2xl font-extrabold text-emerald-700">Marketing Mix Modeling (MMM)</h2>
-                <Card title="Macro, top-down" accent="emerald">
-                  <p>Uses historical and aggregated data to measure impact.</p>
-                  <div className="mt-2 grid grid-cols-2 gap-2 text-xs">
-                    <div className="p-2 bg-emerald-50 border border-emerald-200 rounded">TV/Radio</div>
-                    <div className="p-2 bg-emerald-50 border border-emerald-200 rounded">Digital</div>
-                    <div className="p-2 bg-emerald-50 border border-emerald-200 rounded">Seasonality</div>
-                    <div className="p-2 bg-emerald-50 border border-emerald-200 rounded">Economy</div>
+                  {/* MMM Column */}
+                  <div className="brand-card p-6">
+                    <div className="flex items-center gap-2 mb-4">
+                      <span className="text-2xl">📊</span>
+                      <h2 className="text-xl font-bold text-white serif-heading">Marketing Mix Modeling (MMM)</h2>
+                    </div>
+                    <p className="text-gray-200 text-sm mb-3">Macro, top-down statistical analysis of historical data.</p>
+                    <ul className="list-disc list-inside text-sm text-gray-300 space-y-1 mb-4">
+                      <li>Privacy-safe aggregated data</li>
+                      <li>Includes offline channels</li>
+                      <li>Measures true incrementality</li>
+                    </ul>
+                    <div className="grid grid-cols-2 gap-2 mt-3">
+                      <div className="p-2 bg-teal-900/20 border border-teal-500/30 rounded-lg text-center">
+                        <span className="text-teal-300 text-xs">TV/Radio</span>
+                      </div>
+                      <div className="p-2 bg-teal-900/20 border border-teal-500/30 rounded-lg text-center">
+                        <span className="text-teal-300 text-xs">Digital</span>
+                      </div>
+                      <div className="p-2 bg-teal-900/20 border border-teal-500/30 rounded-lg text-center">
+                        <span className="text-teal-300 text-xs">Seasonality</span>
+                      </div>
+                      <div className="p-2 bg-teal-900/20 border border-teal-500/30 rounded-lg text-center">
+                        <span className="text-teal-300 text-xs">Economy</span>
+                      </div>
+                    </div>
+                    <p className="text-xs text-gray-400 mt-3 font-mono">✅ Covers both online & offline, privacy-safe by design</p>
                   </div>
-                  <p className="mt-2 text-sm">Covers both online and offline, privacy-safe.</p>
-                </Card>
+                </div>
               </div>
-            </section>
-          )}
+            )}
 
-          {activeStep===3 && (
-            <Card title="Step 3: Unified Framework" accent="violet">
-              <div className="grid md:grid-cols-3 gap-4 items-center">
-                <div className="bg-blue-50 border border-blue-200 rounded-xl p-3 text-sm">MTA: granular digital data</div>
-                <div className="bg-emerald-50 border border-emerald-200 rounded-xl p-3 text-sm">MMM: channel performance and external factors</div>
-                <div className="bg-amber-50 border border-amber-200 rounded-xl p-3 text-sm">Incrementality testing: A/B, geo-lift</div>
+            {activeStep === 3 && (
+              <div className="brand-card p-6 animate-fade-slide">
+                <h2 className="text-2xl font-bold text-white serif-heading mb-4 flex items-center gap-2">🔄 Step 3: Unified Framework</h2>
+                <div className="grid md:grid-cols-3 gap-4 mb-6">
+                  <div className="bg-[#1d085e]/30 border border-teal-500/30 rounded-xl p-3 text-center">
+                    <div className="text-teal-300 text-xl mb-1">📱</div>
+                    <div className="text-white text-sm font-medium">MTA</div>
+                    <div className="text-gray-400 text-xs">Granular digital data</div>
+                  </div>
+                  <div className="bg-[#1d085e]/30 border border-teal-500/30 rounded-xl p-3 text-center">
+                    <div className="text-teal-300 text-xl mb-1">📺</div>
+                    <div className="text-white text-sm font-medium">MMM</div>
+                    <div className="text-gray-400 text-xs">Channel performance + external factors</div>
+                  </div>
+                  <div className="bg-[#1d085e]/30 border border-teal-500/30 rounded-xl p-3 text-center">
+                    <div className="text-teal-300 text-xl mb-1">🧪</div>
+                    <div className="text-white text-sm font-medium">Incrementality</div>
+                    <div className="text-gray-400 text-xs">A/B testing, geo-lift</div>
+                  </div>
+                </div>
+                <VennDiagram />
+                <div className="text-center text-sm text-gray-300 mt-4 p-3 bg-[#1d085e]/20 rounded-xl border border-teal-500/30">
+                  💡 No single source of truth — integration provides resilience and better decisions.
+                </div>
               </div>
-              <Venn />
-              <div className="text-sm text-gray-700 mt-2">No single source of truth — integration provides resilience and better decisions.</div>
-            </Card>
-          )}
+            )}
 
-          {activeStep===4 && (
-            <Card title="Step 4: AI" accent="indigo">
-              <div className="flex flex-col md:flex-row md:items-center gap-3">
-                <div className="text-sm md:text-base">AI accelerates modeling, improves attribution, and enables scenario planning.</div>
-                <label className="inline-flex items-center gap-2 text-xs"><input type="checkbox" className="accent-indigo-600" checked={showAI} onChange={()=>setShowAI(!showAI)}/> Show AI tips</label>
+            {activeStep === 4 && (
+              <div className="brand-card p-6 animate-fade-slide">
+                <h2 className="text-2xl font-bold text-white serif-heading mb-4 flex items-center gap-2">🤖 Step 4: AI in Measurement</h2>
+                <div className="grid md:grid-cols-2 gap-6">
+                  <div>
+                    <p className="text-gray-200 text-sm mb-4">AI accelerates modeling, improves attribution, and enables scenario planning across the unified framework.</p>
+                    <label className="inline-flex items-center gap-2 cursor-pointer">
+                      <input type="checkbox" className="accent-teal-500 w-4 h-4" checked={showAI} onChange={() => setShowAI(!showAI)} />
+                      <span className="text-sm text-gray-300 font-mono">Show AI capabilities</span>
+                    </label>
+                  </div>
+                  {showAI && (
+                    <div className="space-y-2">
+                      <div className="flex items-center gap-2 p-2 bg-[#1d085e]/30 rounded-lg border border-teal-500/30">
+                        <span className="text-teal-300">⚡</span>
+                        <span className="text-sm text-gray-200">Faster model updates &amp; real-time calibration</span>
+                      </div>
+                      <div className="flex items-center gap-2 p-2 bg-[#1d085e]/30 rounded-lg border border-teal-500/30">
+                        <span className="text-teal-300">📈</span>
+                        <span className="text-sm text-gray-200">Forecasting &amp; scenario planning</span>
+                      </div>
+                      <div className="flex items-center gap-2 p-2 bg-[#1d085e]/30 rounded-lg border border-teal-500/30">
+                        <span className="text-teal-300">🔮</span>
+                        <span className="text-sm text-gray-200">Signal recovery without cookies (ML-based)</span>
+                      </div>
+                    </div>
+                  )}
+                </div>
               </div>
-              {showAI && (
-                <ul className="mt-3 text-sm grid md:grid-cols-3 gap-2">
-                  <li className="p-2 bg-indigo-50 border border-indigo-200 rounded">Faster model updates</li>
-                  <li className="p-2 bg-indigo-50 border border-indigo-200 rounded">Forecasting and scenarios</li>
-                  <li className="p-2 bg-indigo-50 border border-indigo-200 rounded">Signal recovery without cookies</li>
-                </ul>
-              )}
-            </Card>
-          )}
+            )}
 
-          {activeStep===5 && (
-            <Card title="Step 5: Outcomes" accent="amber">
-              <div className="grid md:grid-cols-3 gap-3 text-sm">
-                <div className="p-3 bg-white border rounded-xl"><span className="font-semibold">Optimised spending</span><div>Budget allocation across channels for maximum return.</div></div>
-                <div className="p-3 bg-white border rounded-xl"><span className="font-semibold">Holistic view</span><div>Complete picture of marketing effectiveness.</div></div>
-                <div className="p-3 bg-white border rounded-xl"><span className="font-semibold">Data-driven decisions</span><div>Confident strategies in complex markets.</div></div>
+            {activeStep === 5 && (
+              <div className="brand-card p-6 animate-fade-slide">
+                <h2 className="text-2xl font-bold text-white serif-heading mb-4 flex items-center gap-2">🎯 Step 5: Outcomes</h2>
+                <div className="grid md:grid-cols-3 gap-4">
+                  <div className="p-4 bg-[#0f0c23] border border-[#1e1e38] rounded-xl text-center hover:border-teal-500 transition-all">
+                    <div className="text-3xl mb-2">💰</div>
+                    <div className="font-semibold text-white mb-1">Optimised spending</div>
+                    <div className="text-xs text-gray-400">Budget allocation across channels for maximum return</div>
+                  </div>
+                  <div className="p-4 bg-[#0f0c23] border border-[#1e1e38] rounded-xl text-center hover:border-teal-500 transition-all">
+                    <div className="text-3xl mb-2">🌍</div>
+                    <div className="font-semibold text-white mb-1">Holistic view</div>
+                    <div className="text-xs text-gray-400">Complete picture of marketing effectiveness</div>
+                  </div>
+                  <div className="p-4 bg-[#0f0c23] border border-[#1e1e38] rounded-xl text-center hover:border-teal-500 transition-all">
+                    <div className="text-3xl mb-2">🎲</div>
+                    <div className="font-semibold text-white mb-1">Data-driven decisions</div>
+                    <div className="text-xs text-gray-400">Confident strategies in complex markets</div>
+                  </div>
+                </div>
               </div>
-            </Card>
-          )}
+            )}
+          </div>
 
-          <div className="text-center text-sm text-gray-600">Tip: Use the step buttons above to navigate through the framework.</div>
+          <div className="text-center text-sm text-teal-300/60 font-mono mt-4">
+            💡 Tip: Use the step buttons above to navigate. Your progress and selected model are saved automatically.
+          </div>
         </div>
       );
     }
 
-    ReactDOM.createRoot(document.getElementById('app')).render(<App/>);
+    ReactDOM.createRoot(document.getElementById('app')).render(<App />);
   </script>
 </body>
 </html>
