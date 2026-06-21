@@ -1,6 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+<!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-KHLN3NSD');</script>
+<!-- End Google Tag Manager -->
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
   <title>Unified Marketing Measurement – Interactive | Valesca Bravo Lab</title>
@@ -14,9 +21,11 @@
   <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
   <!-- html2pdf for export -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js" integrity="sha512-GsLlZN/3F2ErC5ifS5QtgpiJtWd43JWSuIgh7mbzZ8zBps+dvLusV+eNQATqgA/HdeKFVgA5v3S/cIrLF7QnIg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-  <script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
-  <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
-  <script crossorigin src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  
+  <!-- ✅ Stable CDN for React 18 -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/react/18.2.0/umd/react.development.js" crossorigin></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/18.2.0/umd/react-dom.development.js" crossorigin></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/7.23.9/babel.min.js" crossorigin></script>
   
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -132,6 +141,15 @@
   </style>
 </head>
 <body class="bg-[#09071a] font-['DM_Sans'] antialiased">
+<!-- Google Tag Manager (noscript) -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-KHLN3NSD"
+height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<!-- End Google Tag Manager (noscript) -->
+
+  <!-- Google Tag Manager (noscript) -->
+  <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-TU_ID_AQUI"
+  height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+  <!-- End Google Tag Manager (noscript) -->
 
   <!-- Hero Section Branded -->
   <div class="hero-brand relative overflow-hidden">
@@ -147,7 +165,7 @@
         Unified Marketing Measurement
         <span class="block text-xl md:text-2xl font-light text-teal-200 mt-2">Interactive: MTA + MMM + Incrementality</span>
       </h1>
-      <p class="mt-4 text-teal-100/80 max-w-3xl text-lg">Click the buttons, explore the models, and see how granular attribution and holistic modeling work together.</p>
+      <p class="mt-4 text-teal-100/80 max-w-3xl text-lg">Click the buttons, explore the models, and see how granular attribution and holistic modelling work together.</p>
       <div class="mt-5 flex flex-wrap gap-3">
         <span class="pill-teal">Interactive</span>
         <span class="pill-teal">Simplified</span>
@@ -186,7 +204,7 @@
       if (model === 'none') {
         return (
           <div className="mt-4 p-4 bg-[#1d085e]/30 border border-teal-500/40 rounded-xl text-center">
-            <p className="text-teal-300 text-sm font-mono">Select an attribution model above to visualize credit distribution</p>
+            <p className="text-teal-300 text-sm font-mono">Select an attribution model above to visualise credit distribution</p>
           </div>
         );
       }
@@ -330,8 +348,8 @@
           case 1: return "Step 1: The Challenge\nCookies are fading and privacy rules are stronger. Click-only attribution is no longer enough. Key challenges: Cookie decline, Privacy regulations (GDPR, CCPA), Offline impact measurement.";
           case 2: return "Step 2: Two Pillars\nMTA (Multi-Touch Attribution): Tracks each step before conversion, uses pixels and UTM parameters, useful for channel-level optimisation.\nMMM (Marketing Mix Modeling): Uses historical and aggregated data, covers online and offline, privacy-safe.";
           case 3: return "Step 3: Unified Framework\nMTA provides granular digital data. MMM measures channel performance and external factors. Incrementality testing (A/B, geo-lift) validates both. No single source of truth — integration provides resilience.";
-          case 4: return "Step 4: AI in Measurement\nAI accelerates modeling, improves attribution, and enables scenario planning. Benefits: Faster model updates, Forecasting and scenarios, Signal recovery without cookies.";
-          case 5: return "Step 5: Outcomes\nOptimized spending across channels, Holistic view of marketing effectiveness, Data-driven confident strategies in complex markets.";
+          case 4: return "Step 4: AI in Measurement\nAI accelerates modelling, improves attribution, and enables scenario planning. Benefits: Faster model updates, Forecasting and scenarios, Signal recovery without cookies.";
+          case 5: return "Step 5: Outcomes\nOptimised spending across channels, Holistic view of marketing effectiveness, Data-driven confident strategies in complex markets.";
           default: return "Unified Marketing Measurement Framework";
         }
       };
@@ -431,7 +449,7 @@
                   <div className="brand-card p-6">
                     <div className="flex items-center gap-2 mb-4">
                       <span className="text-2xl">📊</span>
-                      <h2 className="text-xl font-bold text-white serif-heading">Marketing Mix Modeling (MMM)</h2>
+                      <h2 className="text-xl font-bold text-white serif-heading">Marketing Mix Modelling (MMM)</h2>
                     </div>
                     <p className="text-gray-200 text-sm mb-3">Macro, top-down statistical analysis of historical data.</p>
                     <ul className="list-disc list-inside text-sm text-gray-300 space-y-1 mb-4">
@@ -491,7 +509,7 @@
                 <h2 className="text-2xl font-bold text-white serif-heading mb-4 flex items-center gap-2">🤖 Step 4: AI in Measurement</h2>
                 <div className="grid md:grid-cols-2 gap-6">
                   <div>
-                    <p className="text-gray-200 text-sm mb-4">AI accelerates modeling, improves attribution, and enables scenario planning across the unified framework.</p>
+                    <p className="text-gray-200 text-sm mb-4">AI accelerates modelling, improves attribution, and enables scenario planning across the unified framework.</p>
                     <label className="inline-flex items-center gap-2 cursor-pointer">
                       <input type="checkbox" className="accent-teal-500 w-4 h-4" checked={showAI} onChange={() => setShowAI(!showAI)} />
                       <span className="text-sm text-gray-300 font-mono">Show AI capabilities</span>
@@ -548,7 +566,9 @@
       );
     }
 
-    ReactDOM.createRoot(document.getElementById('app')).render(<App />);
+    // ✅ Correct React 18 rendering
+    const root = ReactDOM.createRoot(document.getElementById('app'));
+    root.render(<App />);
   </script>
 </body>
 </html>
